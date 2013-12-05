@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.3.0.v201306041519 Build &lt;4.3.0.v20130611-1045></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">72</property>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.ibm.db2.jcc.DB2Driver</property>
+            <property name="odaURL">jdbc:db2://bluforcloud.imdemocloud.com:50001/BLUDB</property>
+            <property name="odaUser">itsshefa</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">NjE5QFNhbmRpZWdv</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="50TopRatedPlaces" id="8">
+            <property name="nullsOrdering">nulls lowest</property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">NAME</property>
+                    <property name="alias">CATEGORY_NAME</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName" key="CATEGORY_NAME">CATEGORY_NAME</text-property>
+                    <text-property name="heading">NAME</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">BUSINESS_ID</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">BUSINESS_ID</text-property>
+                    <text-property name="heading">BUSINESS_ID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">A</property>
+                    <property name="alias">NUMBER_OF_BUSINESS</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName" key="NUMBER_OF_BUSINESS">A</text-property>
+                    <text-property name="heading">A</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">C</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">C</text-property>
+                    <text-property name="heading">C</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">CATEGORY_NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">BUSINESS_ID</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">NUMBER_OF_BUSINESS</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">C</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">NAME</property>
+                    <property name="nativeName">NAME</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">BUSINESS_ID</property>
+                    <property name="nativeName">BUSINESS_ID</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">A</property>
+                    <property name="nativeName">A</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">C</property>
+                    <property name="nativeName">C</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select b.name, r.business_id, avg(r.stars) as a, count(*) as c from review r, business b where b.business_id = r.business_id  group by r.business_id, b.name having count(*) > 10 order by a desc, c desc  FETCH FIRST 50 ROWS ONLY]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>NAME</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>NAME</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>NAME</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>A</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>A</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>A</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="83">
+            <column id="84"/>
+            <row id="85">
+                <cell id="86">
+                    <text id="89">
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<H1>
+Top 50 rated places in Pheonix Arizona
+</H1>
+]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="87">
+                <cell id="88">
+                    <table id="90">
+                        <property name="dataSet">50TopRatedPlaces</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">CATEGORY_NAME</property>
+                                <text-property name="displayName" key="CATEGORY_NAME">CATEGORY_NAME</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["CATEGORY_NAME"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">NUMBER_OF_BUSINESS</property>
+                                <text-property name="displayName" key="NUMBER_OF_BUSINESS">A</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["NUMBER_OF_BUSINESS"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">C</property>
+                                <text-property name="displayName">C</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["C"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                        </list-property>
+                        <column id="114"/>
+                        <column id="116"/>
+                        <column id="117"/>
+                        <header>
+                            <row id="91">
+                                <cell id="92">
+                                    <label id="93">
+                                        <text-property name="text" key="CATEGORY_NAME">Business Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="96">
+                                    <label id="97">
+                                        <text-property name="text" key="NUMBER_OF_BUSINESS">Average Rating</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="98">
+                                    <label id="99">
+                                        <text-property name="text">Number Of Reviews</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="100">
+                                <cell id="101">
+                                    <data id="102">
+                                        <property name="resultSetColumn">CATEGORY_NAME</property>
+                                    </data>
+                                </cell>
+                                <cell id="105">
+                                    <data id="106">
+                                        <property name="resultSetColumn">NUMBER_OF_BUSINESS</property>
+                                    </data>
+                                </cell>
+                                <cell id="107">
+                                    <data id="108">
+                                        <property name="resultSetColumn">C</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="109">
+                                <cell id="110"/>
+                                <cell id="112"/>
+                                <cell id="113"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>
